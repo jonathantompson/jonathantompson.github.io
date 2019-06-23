@@ -1,1 +1,640 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  <title>Jonathan Tompson</title>
+  <meta name="description" content="Academic Website">
+  <meta name="author" content="Jonathan Tompson">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="./css" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="./skeleton.css">
+  <link rel="stylesheet" href="./custom.css">
+  <link rel="stylesheet" href="./social-circles.min.css">
+
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="SHORTCUT ICON" href="favicon.ico"/>
+  <link rel="apple-touch-icon" href="favicon_apple.ico"/>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+ <div class="navbar-spacer"></div>
+    <nav class="navbar">
+      <div class="container">
+        <ul class="navbar-list">
+          <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="#pubs">Projects</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="#resume">Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="one-half column" style="margin-top: 15%">
+        <img class="bio-image" src="images/IMG_0101_cropped.JPG">
+      </div>
+      <div class="one-half column" style="margin-top: 15%">
+        <h2>Jonathan Tompson</h2>
+        <p>Research Scientist<br>
+        <a class="project-link" href="https://scholar.google.com/citations?user=U_Jw8DUAAAAJ" target="_blank">Google Scholar</a><br>
+        <a href="http://github.com/jonathantompson">github</a><br>
+		<a class="project-link" href="https://www.linkedin.com/in/jonathan-tompson-26487413/" target="_blank">LinkedIn</a><br>
+        <a href="https://sermanet.github.io/">Email: first dot last at gmail</a>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 10%" id="about">
+      <p> I am a Senior Research Scientist for <a href="https://research.google.com/teams/brain/">Google Brain</a> in Mountain View, CA. My research background coves a wide range of topics: computer vision and graphics, robotics, computational fluid dynamics, reinforcement learning, unsupervised learning, hand and human body tracking and analog IC design. This website showcases an overview of some of this work. If you have any questions or comments you can contact me.</p>
+    </div>
+  </div>
+
+
+
+  <div class="container">
+
+    <div class="row" style="margin-top: 2%" id="pubs">
+      <h4>Projects</h4>
+    </div>
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <video class="paper-image" src="images/top.mp4" autoplay loop playsinline muted></video>
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Temporal Cycle-Consistency Learning</b><br>
+			  <em>Debidatta Dwibedi, Yusuf Aytar, Jonathan Tompson, Pierre Sermanet, Andrew Zisserman</em><br/>
+			  CVPR 2019
+			  <a href="https://arxiv.org/abs/1803.08225">[paper]</a>
+			  <a href="https://sites.google.com/view/temporal-cycle-consistency/">[webpage]</a>
+			  <a href="https://www.youtube.com/watch?v=iWjjeMQmt8E">[video]</a><br/>
+			  A self-supervised representation learning method based on the task of temporal alignment between videos. In addition to robustly solving video alignment, we should that these representations enable few-shot classification of video action phases.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <video class="paper-image" src="images/8tasks1920x540_cropped.mp4" autoplay loop playsinline muted></video>
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Latent Plans from Play</b><br>
+			  <em>Corey Lynch, Mohi Khansari, Ted Xiao, Vikash Kumar, Jonathan Tompson, Sergey Levine, Pierre Sermanet </em><br/>
+			  Submitted
+			  <a href="https://arxiv.org/pdf/1903.01973.pdf">[paper]</a>
+			  <a href="https://learning-from-play.github.io/">[website]</a><br/>
+			  A novel method for learning hierarchical robotic control policies from unstructured play data.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/dac_cropped.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Discriminator-Actor-Critic: Addressing Sample Inefficiency and Reward Bias in Adversarial Imitation Learning</b><br>
+			  <em>Ilya Kostrikov, Kumar Krishna Agrawal , Debidatta Dwibedi, Sergey Levine, Jonathan Tompson</em><br/>
+			  ICLR 2019
+			  <a href="https://arxiv.org/abs/1809.02925">[paper]</a><br/>
+			  Presented a SoTA Adversarial Imitation Learning method that utilizes an off-policy variant of the <a href="https://arxiv.org/abs/1606.03476">GAIL</a> algorithm, as well as a novel mechanism for handling absorbing states.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/person_lab.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>PersonLab: Person Pose Estimation and Instance Segmentation</b><br>
+			  <em>George Papandreou, Tyler Zhu, Liang-Chieh Chen, Spyros Gidaris, Jonathan Tompson, Kevin Murphy</em><br/>
+			  ECCV 2018
+			  <a href="https://arxiv.org/abs/1803.08225">[paper]</a>
+			  <a href="https://sites.google.com/view/actionablerepresentations/">[website]</a><br/>
+			  A box-free bottom-up approach for the tasks of pose estimation and instance segmentation of people in multi-person images using an efficient single-shot model.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/mftcn.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Actionable Representations from Visual Observations</b><br>
+			  <em>Debidatta Dwibedi, Jonathan Tompson, Corey Lynch, Pierre Sermanet</em><br/>
+			  CVPR 2018 Workshop
+			  <a href="https://arxiv.org/abs/1808.00928">[paper]</a>
+			  <a href="https://sites.google.com/view/actionablerepresentations/">[website]</a><br/>
+			  A novel framework for learning robust visual features for training robotic agents. Building upon the <a href="https://arxiv.org/abs/1704.06888" class="link">TCN</a> framework, we show that our learned representations are as performant as policies trained from true state representations.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/debi_net.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Temporal Reasoning in Videos using Convolutional Gated Recurrent Units</b><br>
+			  <em>Debidatta Dwibedi, Jonathan Tompson, Pierre Sermanet</em><br/>
+			  CVPR 2018 Workshop
+			  <a href="http://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w19/Dwibedi_Temporal_Reasoning_in_CVPR_2018_paper.pdf">[paper]</a><br/>
+			  An archiecture for video-based action recognition using a novel latent prediction loss to constrain and improve latent representations.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="two columns" style="margin-top: 2%; width: 12.61111%">
+		    <img class="paper-image" src="images/plane_spin.gif"><br>
+			<img class="paper-image" src="images/expand.gif">
+        </div>
+        <div class="two columns" style="margin-top: 2%; margin-left: 0.75%; width: 12.61111%">
+		    <img class="paper-image" src="images/car_spin.gif"><br>
+			<img class="paper-image" src="images/wig1.gif">
+        </div>
+        <div class="two columns" style="margin-top: 2%; margin-left: 0.75%; width: 12.61111%">
+		    <img class="paper-image" src="images/chair_spin.gif"><br>
+			<img class="paper-image" src="images/wig2.gif">
+        </div>		
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Discovery of Semantic 3D Keypoints via End-to-end Geometric Reasoning</b><br>
+			  <em>Supasorn Suwajanakorn. Noah Snavely, Jonathan Tompson, Mohammad Norouzi</em><br/>
+			  NIPS 2018 Oral
+			  <a href="https://arxiv.org/pdf/1807.03146.pdf">[paper]</a>
+			  <a href="https://keypointnet.github.io/">[website]</a><br/>
+			  A semi-supervised method to recover semantically consistent 3D keypoints from weakly labeled RGB data. 
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/scoop_gif.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Robotic Manipulation of Granular Media</b><br>
+			  <em>Connor Schenck, Jonathan Tompson, Dieter Fox, Sergey Levine</em><br/>
+			  CoRL 2017
+			  <a href="https://arxiv.org/abs/1709.02833">[paper]</a>
+			  <a href="https://www.youtube.com/watch?v=mpjwW618n_Y">[video]</a><br/>
+			  This paper examines the problem of robotic manipulation of graunular media, where we learn predictive models of granular media dynamics to perform scooping and dumping actions.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/vale_gif_compressed.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Towards Accurate Multi-person Pose Estimation in the Wild</b><br>
+			  <em>George Papandreou, Tyler Zhu, Nori Kanazawa, Alexander Toshev, Jonathan Tompson, Chris Bregler, Kevin Murphy</em><br/>
+			  CVPR 2017
+			  <a href="https://arxiv.org/abs/1701.01779">[paper]</a>
+			  <a href="https://drive.google.com/open?id=0By7jnMwv2HCOUDJWV3ZZM3YwTUk">[slides]</a><br/>
+			  State-of-the-art RGB human pose on MSCOCO using a 2-stage system for top-down detection.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/arch_gif_big.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Accelerating Eulerian Fluid Simulation With Convolutional Networks</b><br>
+			  <em>Jonathan Tompson, Kristofer Schlachter, Pablo Sprechmann, Ken Perlin</em><br/>
+			  ICML 2017
+			  <a href="http://arxiv.org/abs/1607.03597">[paper]</a>
+			  <a href="https://www.youtube.com/watch?v=w71zxkniJfo">[video]</a>
+			  <a href="http://cims.nyu.edu/~schlacht/CNNFluids.htm">[website]</a><br/>
+			  A learning-based system for simulating Navier-Stokes Equations in real-time. We do so by reformulating the standard operator splitting method as an end-to-end network.
+			</p>
+		</div>
+    </div>		
+	
+	<!-- TODO(tompson): Google Hand tracking here. -->
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/thesis_snippit.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>PhD Thesis: Localization of Humans in Images Using Convolutional Networks</b><br>
+			  NYU 2015
+			  <a href="others/thesis.pdf">[thesis]</a>
+			  <a href="others/thesis-defense_no_videos.pdf">[ppt]</a>
+			  <br/>
+			  My PhD thesis covers *most* of the human body tracking work I did while at NYU.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/mocap.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Efficient ConvNet-based Marker-less Motion Capture in General Scenes with a Low Number of Cameras</b><br>
+			  <em>Ahmed Elhayek, Edilson De Aguiar, Arjun Jain, Jonathan Tompson, Leonid Pishchulin, Micha Andriluka, Christoph Bregler, Bernt Schiele, Christian Theobalt</em><br/>
+			  CVPR 2015
+			  <a href="others/cvpr2015_ahmed.pdf">[paper]</a>
+			  <a href="http://gvv.mpi-inf.mpg.de/projects/convNet_moCap/vids/video.mp4">[video]</a>
+			  <a href="http://gvv.mpi-inf.mpg.de/projects/convNet_moCap/">[website]</a><br/>
+			  SoTA motion capture in arbitrary scenes from few cameras.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/cvpr_2014_model.jpg"><br>
+			<img class="paper-image" src="images/cvpr_2014_detections.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Efﬁcient Object Localization Using Convolutional Networks</b><br>
+			  <em>Jonathan Tompson, Ross Goroshin, Arjun Jain, Yann LeCun, Christoph Bregler</em><br/>
+			  CVPR 2015
+			  <a href="others/tompson_cvpr15.pdf">[paper]</a>
+			  <a href="data/flic_predictions_cvpr.zip">[predictions_flic]</a>
+			  <a href="data/mpii_test_pred.zip">[predictions_mpii]</a><br/>
+			  SoTA body tracking. A novel cascaded architecture to help overcome the effects of MaxPooling. A modified dropout that works better in the presence of spatially-coherent activations.<br>
+			  Turked MPII images containing one person: <a href="data/single_person_list_MPII.txt">[data]</a>.
+			</p>
+		</div>
+    </div>		
+	
+	<!--<div class="row" style="background: url(images/img02.gif) repeat-x left top;">-->
+	
+	<!--
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/deep_patch_neighbours.jpg"><br>
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Local Image Descriptor</b><br>
+			  <em>Arjun Jain, Jonathan Tompson, Christoph Bregler</em><br/>
+			  Designed a SIFT-like descriptor, which outperforms all existing state-of-the-art.<br>
+			</p>
+		</div>
+    </div>
+	-->
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/flic_plus_sample_cropped.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>FLIC-plus Dataset</b><br>
+			  <em>Jonathan Tompson, Arjun Jain, Christoph Bregler, Yann LeCun</em><br/>
+			  NIPS 2014
+			  <a href="https://cims.nyu.edu/~tompson/flic_plus.htm">[website]</a><br/>
+			  Cleaned up an filtered the FLIC Human Pose dataset of Sapp et al. for fairer evaluation and higher quality labels.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/LSP_results.jpg"><br>
+			<img class="paper-image" src="images/nips_2014_arch1.jpg"><br>
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Human Pose Estimation Features with Convolutional Networks</b><br>
+			  <em>Jonathan Tompson, Arjun Jain, Christoph Bregler, Yann LeCun</em><br/>
+			  NIPS 2014
+			  <a href="others/joint-training-convolutional.pdf">[paper]</a>
+			  <a href="data/flic_lsp_predictions.zip">[predictions]</a><br/>
+			  Substantially improved the architecture, incorporated the MRF into the ConvNet and significantly outperformed existing state-of-the-art.
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/motion_feat.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Human Pose Estimation Features with Convolutional Networks</b><br>
+			  <em>Arjun Jain, Jonathan Tompson, Yann LeCun, Christoph Bregler</em><br/>
+			  ACCV 2014
+			  <a href="http://arxiv.org/pdf/1409.7963v1.pdf">[paper]</a><br/>
+			  For ambiguous poses with poor image evidence (such as detecting the pose of camouflaged actors), we showed that motion flow features allow us to outperform state-of-the-art techniques.
+			</p>
+		</div>
+    </div>
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/features.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Unsupervised Feature Learning from Temporal Data</b><br>
+			  <em>Rostislav Goroshin, Joan Bruna, Jonathan Tompson, Arthur Szlam, David Eigen, Yann LeCun</em><br/>
+			  ACCV 2014
+			  <a href="others/nips2014_workshop_ross.pdf">[paper]</a><br/>
+			  A sparse auto-encoder architecture to make use of temporal coherence. This formulation enables pre-training on unlabeled video data (of which there is a massive abundance), to improve ConvNet performance.
+			</p>
+		</div>
+    </div>	
+	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/body_tracking_2_2.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Learning Human Pose Estimation Features with Convolutional Networks</b><br>
+			  <em>Arjun Jain, Jonathan Tompson, Mykhaylo Andriluka, Graham W. Taylor, Christoph Bregler</em><br/>
+			  ICLR 2014
+			  <a href="others/iclr2014_paper.pdf">[paper]</a><br/>
+			  It was a new architecture for human pose estimation using a ConvNet + MRF spatial model and it was the first paper to show that a variation of deep learning could outperform existing architectures.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/nyu_hand_pose_dataset_sample2.png">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>NYU Hand Pose Dataset</b><br>
+			  <em>Jonathan Tompson, Murphy Stein, Ken Perlin, Yann LeCun</em><br/>
+			  <a href="http://cims.nyu.edu/~tompson/NYU_Hand_Pose_Dataset.htm" class="link">[website]</a> <a href="https://github.com/jonathantompson/ModelFit">[code]</a><br/>
+			  High quality hand pose dataset released. Was the primary hand pose evaluation dataset for the community for years.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/hand_tracking.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Real-Time Continuous Pose Recovery of Human Hands Using Convolutional Networks</b><br>
+			  <em>Jonathan Tompson, Murphy Stein, Ken Perlin, Yann LeCun</em><br/>
+			  SIGGRAPH 2014
+			  <a href="others/TOG_2014_paper.pdf">[paper]</a>
+			  <a href="https://www.youtube.com/watch?v=J4c_x1QnW0A">[video]</a>
+			  <a href="others/paper_presentation_no_videos.pptx">[ppt]</a>
+			  <a href="https://github.com/jonathantompson/KinectHands">[code]</a><br/>
+			  A novel method for real-time pose recovery of markerless complex articulable objects from a single depth image. We showed state-of-the-art results for real-time hand tracking.<br>
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/dlock2.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Distributed Locking Protocol</b><br>
+			  Working at MongoDB Inc with the server kernel team (under Alberto Lerner): developed a new distributed lease protocol (for the sharding config server) using a heavily modified 2-phase commit with timeout mechanism.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/rdf_cropped.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Open-Source Randomized Decision Forests</b><br>
+			  <a href="https://www.youtube.com/watch?v=fj7nafr39rU">[video]</a> <a href="https://github.com/jonathantompson/KinectHands">[code]</a><br/>
+			  Early hand-tracking research: a randomized-decision-forest classifier trained to recognize hand pixels using Microsoft's Kinect. Provides an OSS implementation of <a href="http://research.microsoft.com/pubs/145347/BodyPartRecognition.pdf">Real-Time Human Pose Recognition in Parts from Single Depth Images</a>
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		    <img class="paper-image" src="images/arcade_cropped.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>ARCADE</b><br>
+			  <em>Jonathan Tompson, Ken Perlin, Murphy Stein, Charlie Hendee, Xiao Xiao Hiroshi Ishii</em><br/>
+			  SIGGRAPH Realtime Live 2012 <a href="https://www.youtube.com/watch?v=JP9AIjokW_k">[video]</a><br/>
+			  Group project with the MIT Media Lab and NYU Media Research Lab. ARCADE is a system that allows real-time video-based presentations that convey the illusion that presenters are directly manipulating holographic 3D objects with their hands. 
+			</p>
+		</div>
+    </div>		
+	
+	<!--
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+          <img class="paper-image" src="images/prenderer.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p style="margin-bottom: 0.9rem">
+			    <b>Open-Source OpenGL Renderer: PRenderer</b><br>
+				<a href="https://github.com/jonathantompson/prenderer">[source]</a><br>
+				<ul style="margin-bottom: 0.1rem;font-size: 0.75em; list-style-position: outside; margin-left: 1em;">
+                    <li>Compact G-Buffer encoding</li>
+                    <li>Light volume optimizations</li>
+                    <li>Soft shadows using PSVSM</li>
+                    <li>Screen space ambient occlusion</li>
+                    <li>Motion blur</li>
+                    <li>HDR Rendering pipeline</li>
+                    <li>Depth of Field</li>
+				</ul>
+			</p>
+		</div>
+    </div>
+    -->	
+	
+    <div class="row">
+        <div class="two columns" style="margin-top: 2%; width: 19%">
+          <img class="paper-image" src="images/obb_tree_cropped.gif">
+		  <img class="paper-image" src="images/cloth_sim_cropped.gif">
+        </div>
+        <div class="two columns" style="margin-top: 2%; margin-left: 1.33333%; width: 19%">
+          <img class="paper-image" src="images/mesh_dec_bunny_cropped.gif">
+		  <!-- <img class="paper-image" src="images/hungry_bee_crop.gif"> -->
+		  <img class="paper-image" src="images/prenderer_cropped.gif">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p style="margin-bottom: 0.5rem">
+			    <b>Miscellaneous Open-Source Graphics Projects</b><br>
+				Over the years I have open sourced implementations of multiple graphics algorithms, including:
+				<ul style="margin-bottom: 0.5rem;font-size: 1.0em; list-style-position: outside; margin-left: 1em;">
+				  <li>OSS implementation of <a href="ftp://ftp.cs.unc.edu/pub/users/manocha/PAPERS/COLLISION/sig96.pdf">OBBTree: A Hierarchical Structure for Rapid Interference Detection</a> <a href="http://code.google.com/p/obbdetection/">[source]</a></li>
+				  <li> OSS implementation of <a href="http://research.microsoft.com/en-us/um/people/hoppe/newqem.pdf">New Quadric Metric for Simplifying Meshes with Appearance Attributes</a></li>
+				  <li>OSS implementation of <a href="http://www.cs.cmu.edu/~baraff/papers/sig98.pdf">large steps in cloth simulation</a> <a href="http://code.google.com/p/clothsim/">[source]</a></li>
+				  <li>Open-Source OpenGL Renderer: PRenderer <a href="https://github.com/jonathantompson/prenderer">[source]</a></li>	
+				  <li>An XNA Game "Hungry Bee" game development tutorial <a href="http://code.google.com/p/hungrybee/">[source]</a></li>			  
+				</ul>
+			</p>
+		</div>
+    </div>	
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+          <img class="paper-image" src="images/Epoch-sign.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p style="margin-bottom: 0.5rem">
+			    <b>IC Reserach and Development at <a href="http://www.epochmicro.com/">Epoch Microelectronics</a></b><br>
+				Designed a wide range of mixed signal RFICs including:
+				<ul style="margin-bottom: 0.5rem; font-size: 0.8em">
+				  <li>RF Modulators (passive and active).</li>
+				  <li>Fractional and integer PLLs.</li>
+				  <li>Wideband, low-noise LNAs.</li>
+				  <li>Low-noise bandgaps and regulators.</li>
+				  <li>LC and XTAL oscillators.</li>
+				  <li>ΣΔ modulators.</li>
+				  <li>FIR/IIR interpolation and decimation filters.</li>
+				  <li>Anti-aliasing filters for data converters.</li>
+				  <li>Continuous time, high linearity analog filters for base-band processing.</li>
+				</ul>
+				Worked with multiple telecommunication standards, including:
+				<ul style="margin-bottom: 0.5rem;font-size: 0.8em">
+				  <li>Cellular: GSM (EDGE), CDMA, WCDMA, LTE, WIMAX </li>
+				  <li>Terrestrial and Cable Television: DVB, ATSC, ISDB </li>
+				  <li>Low-power standards: Bluetooth, Zigbee </li>
+				</ul>
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+          <img class="paper-image" src="images/PK_Contactless_Chip_cropped.jpg">
+		  <!--<img class="paper-image" src="images/PK_Contactless_Architecture.jpg">-->
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>2.6GHz RF Inductive Power Delivery for Contactless On-Wafer Characterization</b><br>
+			  <em>Jonathan Tompson, Adam Dolin and Peter Kinget</em><br/>
+			  ICMTS 2008 <a href="others/wireless_tompson.pdf">[paper]</a><br/>
+			  Designed a contactless IC testing mechanism using inductive probing through custom devices.
+			</p>
+		</div>
+    </div>		
+	
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+		  <img class="paper-image" src="images/PK_test_setup_cropped.jpg">
+		  <!--<img class="paper-image" src="images/PK_Variation_Chip.jpg">-->
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+			  <b>Mismatch Characterization of Ring-Oscillators</b><br>
+			  <em>Jonathan Tompson, Peter Kinget</em><br>
+			  2008 Research Associate<br>
+			  Investigated the matching of on-chip oscillators and compared statistics to theoretical estimates.
+			</p>
+		</div>
+    </div>	
+
+    <div class="row">
+        <div class="five columns" style="margin-top: 2%">
+          <!-- <img class="paper-image" src="images/spiral_ind.jpg"> -->
+		  <img class="paper-image" src="images/spiral_ind2.jpg">
+        </div>
+        <div class="seven columns" style="margin-top: 2%">
+			<p>
+				<b>High-Speed, Chip-to-Chip Communcation</b><br>
+				<em>Jonathan Tompson, Gu-Yeon Wei</em><br>
+				2006 Undergraduate Honors thesis<br>
+				Designed a novel transformer-based communication system for high-speed digital systems.
+			</p>
+		</div>
+    </div>
+	
+    <div class="row">
+        <div class="ten columns" style="margin-top: 2%">
+			<p style="margin-bottom: 0.5rem">
+			  <b>Open Source Tools</b><br>
+			  I've written or contributed to many OSS tools over the years.  This is a short list of some:
+			  <uls>
+				  <li><a href="https://github.com/jonathantompson/jtorch" class="link">jtorch</a> - Torch7 Utility Library for running models in OpenCL / C++</li>
+				  <li><a href="https://github.com/jonathantompson/jcl" class="link">jcl</a> - OpenCL Wrapper (to make OpenCL easier)</li>
+				  <li><a href="https://github.com/jonathantompson/torchzlib" class="link">torchzlib</a> - A utility library for zlib compression / decompression of Torch7 tensors</li>
+				  <li><a href="https://github.com/jonathantompson/matlabnoise" class="link">matlabnoise</a> - Matlab procedural noise library</li>
+				  <li><a href="https://github.com/jonathantompson/matlabobj" class="link">matlabobj</a> - Matlab obj reader</li>
+				  <li><a href="http://torch.ch/" class="link">torch7</a> - I'm a reasonably regular contributor to torch and it's various packages </li>
+				  <li><a href="https://github.com/jonathantompson/icp" class="link">icp</a> - A C++ Iterative Closest Point library (with Matlab interface)</li>
+				  <li><a href="https://github.com/jonathantompson/ik" class="link">ik</a> - A very simple inverse kinematics library (in C++) </li>
+				  <li><a href="https://github.com/jonathantompson/ModelFit" class="link">ModelFit</a> - Off-line fitting portion of the hand-tracking paper below</li>
+				  <li><a href="https://github.com/jonathantompson/jzmq" class="link">jzmq</a> - A ZeroMQ Utility Library (C++)</li>
+				  <li> There are probably others...  See my <a href="https://github.com/jonathantompson/" class="link">github</a>.</li>
+			  </ul>
+			</p>
+		</div>
+    </div>	
+	
+  </div>
+  
+  <div class="container">
+
+    <div class="row" style="margin-top: 2%" id="resume">
+      <h4>Resume</h4>
+    </div>
+	
+	<div class="row">
+	    <p>
+	        <a href="resume/JJRT_resume_no_address.pdf" style="text-decoration: none"><img  src="images/pfd.gif" height="30" alt=""/> </a><a href="resume/JJRT_resume_no_address.pdf">PDF</a>, 
+	        <a href="resume/JJRT_resume_no_address.doc" style="text-decoration: none"><img  src="images/word.gif" height="30" alt=""/> </a><a href="resume/JJRT_resume_no_address.doc">WORD</a>
+	        <br />
+	    </p>
+	    <div style="text-align:center">
+	        <iframe src="http://docs.google.com/gview?url=https://jonathantompson.github.io/resume/JJRT_resume_no_address.pdf&embedded=true" 
+style="width:900px; height:2150px;" frameborder="0">Embedded pdf not supported by your browser.  Please click the download link above.</iframe>
+	    </div>
+		<br/>
+	</div>
+	
+  </div>	
+
+<br>
+<br>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+
+</body></html>
