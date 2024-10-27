@@ -35,7 +35,7 @@
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
- <div class="navbar-spacer"></div>
+    <div class="navbar-spacer"></div>
     <nav class="navbar">
       <div class="container">
         <ul class="navbar-list">
@@ -49,12 +49,12 @@
 
   <div class="container">
     <div class="row">
-      <div class="one-half column" style="margin-top: 8.0%">
+      <div class="one-half column" style="margin-top: 6.0%">
         <img class="bio-image" src="images/IMG_0101_cropped.JPG" alt="">
       </div>
-      <div class="one-half column" style="margin-top: 8.0%">
+      <div class="one-half column" style="margin-top: 6.0%">
 	    <br>
-        <h2>Jonathan Tompson</h2>
+        <h3>Jonathan Tompson</h3>
         <div>
             <p style="float: left; margin-bottom: 4px; margin-right: 10px"> <img src="images/icon_google_scholar.png" alt="" width="24" height="24"> </p>
             <a class="project-link" href="https://scholar.google.com/citations?user=U_Jw8DUAAAAJ"  style="font-size: 1.1em;" target="_blank">Google Scholar</a><br>
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div class="row" style="margin-top: 7.5%" id="about">
+    <div class="row" style="margin-top: 5.5%" id="about">
       <p style="font-size: 1.2em;"> I am a <b>Senior Staff Research Scientist</b> and <b>Research Manager</b> for <a href="https://deepmind.google/">Google DeepMind</a> in Mountain View, CA. My research background covers a wide range of topics: robotics, imitation learning, reinforcement learning, computer vision and graphics, computational fluid dynamics, unsupervised learning, hand and human body tracking and integrated circuit design.</p>
     </div>
   </div>
@@ -84,8 +84,36 @@
   <div class="container">
 
     <div class="row" style="margin-top: 2%" id="pubs">
-      <h4>Projects</h4>
+      <h4>Selected Projects</h4>
     </div>
+    
+        <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
+        <div class="five columns" style="margin-top: 4%">
+                    <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/ALOHA Unleashed_ Autonomous Policies - 480p.mp4" type="video/mp4"></video>
+        </div>
+        <div class="seven columns" style="margin-top: 3%">
+                        <p>
+                          <b>ALOHA Unleashed: A simple recipe for robot dexterity</b><br>
+                          <em>Tony Z Zhao, Jonathan Tompson, Danny Driess, Pete Florence, Kamyar Ghasemipour, Chelsea Finn, Ayzaan Wahid</em><br/>
+                          CoRL 2024 <a href="https://arxiv.org/pdf/2410.13126">[paper]</a> <a href="https://aloha-unleashed.github.io/">[website]</a><br/>
+                          Aloha Unleased introduced a new level of dexterous policy learning. Using high-quality data from Aloha2 and a diffusion policy architecture we were able to automate dexterous tasks such as shoe-lace untying, t-shirt and laundry hanging, etc.
+                        </p>
+                </div>
+    	</div>  
+
+        <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
+        <div class="five columns" style="margin-top: 4%">
+                    <img class="paper-image" src="images/length_conditioning.png" alt="">
+        </div>
+        <div class="seven columns" style="margin-top: 3%">
+                        <p>
+                          <b>FlexCap: Generating Rich, Localized, and Flexible Captions in Images</b><br>
+                          <em>Debidatta Dwibedi, Vidhi Jain, Jonathan Tompson, Andrew Zisserman, Yusuf Aytar</em><br/>
+                          NeurIPS 2024 <a href="https://arxiv.org/abs/2403.12026">[paper]</a> <a href="https://flex-cap.github.io/">[website]</a><br/>
+                          We introduce a versatile flexible-captioning VLM capable of generating region-specific descriptions of varying lengths, which we call FlexCap. We demonstrates SoTA in dense captioning tasks on the Visual Genome dataset and SoTA zero-shot performance on a number of VQA datasets.
+                        </p>
+                </div>
+    	</div>           
         
         <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
         <div class="five columns" style="margin-top: 4%">
@@ -101,20 +129,6 @@
                 </div>
     	</div>     
 
-        <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
-        <div class="five columns" style="margin-top: 4%">
-                    <img class="paper-image" src="images/length_conditioning.png" alt="">
-        </div>
-        <div class="seven columns" style="margin-top: 3%">
-                        <p>
-                          <b>FlexCap: Generating Rich, Localized, and Flexible Captions in Images</b><br>
-                          <em>Debidatta Dwibedi, Vidhi Jain, Jonathan Tompson, Andrew Zisserman, Yusuf Aytar</em><br/>
-                          Preprint 2024 <a href="https://arxiv.org/abs/2403.12026">[paper]</a> <a href="https://flex-cap.github.io/">[website]</a><br/>
-                          We introduce a versatile flexible-captioning VLM capable of generating region-specific descriptions of varying lengths, which we call FlexCap. We demonstrates SoTA in dense captioning tasks on the Visual Genome dataset and SoTA zero-shot performance on a number of VQA datasets.
-                        </p>
-                </div>
-    	</div>         
-        
         <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
         <div class="five columns" style="margin-top: 4%">
                     <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/alphabots_sim_cropped_fast.mp4" type="video/mp4"></video>
@@ -186,7 +200,7 @@
                 </div>
     	</div>         
         
-
+        <!--
         <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
         <div class="five columns" style="margin-top: 4%">
                     <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/geo_match_small.mp4" type="video/mp4"></video>
@@ -200,6 +214,7 @@
                         </p>
                 </div>
     	</div>     
+        -->
 
         <div class="row"  style="border-top-style: dotted; border-top-width: thin;">
         <div class="five columns" style="margin-top: 4%">
@@ -263,6 +278,7 @@
     	</div>    
     
     
+        <!--
         <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
                     <img class="paper-image" src="images/negin_paper_square.jpg" alt="">
@@ -276,6 +292,7 @@
                         </p>
                 </div>
     	</div>    
+        -->
 
         <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
@@ -386,9 +403,9 @@
                 </div>
     	</div>
 
+        <!--
         <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
-                    <!-- <img class="paper-image" src="images/demos-cloth-flat-1x.gif" alt=""> -->
                     <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/demos-cloth-flat-2x.mp4" type="video/mp4"></video>
         </div>
         <div class="seven columns" style="margin-top: 3%">
@@ -401,6 +418,7 @@
                         </p>
                 </div>
     	</div>
+        -->
 
         <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
@@ -461,7 +479,8 @@
 		</div>
     	</div>
 	
-	<div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
+	<!--
+    <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <img class="paper-image" src="images/adail.jpg" alt="">
         </div>
@@ -475,7 +494,9 @@
 			</p>
 		</div>
     </div>
+    -->
 	
+    <!--
 	<div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <img class="paper-image" src="images/tracking.jpg" alt="">
@@ -491,6 +512,7 @@
 		</div>
     </div>
 	
+    -->
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 			<!--<img class="paper-image" src="images/top.gif" alt="">-->
@@ -558,9 +580,9 @@
 		</div>
     </div>		
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
-		    <!-- <img class="paper-image" src="images/mftcn.gif" alt=""> -->
             <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/mftcn.mp4" type="video/mp4"></video>
         </div>
         <div class="seven columns" style="margin-top: 3%">
@@ -573,8 +595,10 @@
 			  A novel framework for learning robust visual features for training robotic agents. Building upon the <a href="https://arxiv.org/abs/1704.06888" class="link">TCN</a> framework, we show that our learned representations are as performant as policies trained from true state representations.
 			</p>
 		</div>
-    </div>		
+    </div>
+    -->    
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <img class="paper-image" src="images/debi_net.jpg" alt="">
@@ -589,6 +613,7 @@
 			</p>
 		</div>
     </div>	
+    -->
 	
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="two columns" style="margin-top: 2%; width: 12.61111%">
@@ -621,7 +646,7 @@
 			</p>
 		</div>
     </div>
-	
+
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <!-- <img class="paper-image" src="images/scoop_gif.gif" alt=""> -->
@@ -761,6 +786,7 @@
     </div>
 	-->
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <img class="paper-image" src="images/flic_plus_sample_cropped.jpg" alt="">
@@ -774,7 +800,8 @@
 			  Cleaned up an filtered the FLIC Human Pose dataset of Sapp et al. for fairer evaluation and higher quality labels.
 			</p>
 		</div>
-    </div>		
+    </div>
+    -->    
 	
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
@@ -872,6 +899,7 @@
 		</div>
     </div>	
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		    <img class="paper-image" src="images/dlock2.jpg" alt="">
@@ -882,11 +910,12 @@
 			  Working at MongoDB Inc with the server kernel team (under Alberto Lerner): developed a new distributed lease protocol (for the sharding config server) using a heavily modified 2-phase commit with timeout mechanism.
 			</p>
 		</div>
-    </div>		
+    </div>	
+    -->	
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
-		    <!-- <img class="paper-image" src="images/rdf_cropped.gif" alt=""> -->
             <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/rdf_cropped.mp4" type="video/mp4"></video>
         </div>
         <div class="seven columns" style="margin-top: 3%">
@@ -896,11 +925,12 @@
 			  Early hand-tracking research: a randomized-decision-forest classifier trained to recognize hand pixels using Microsoft's Kinect. Provides an OSS implementation of <a href="http://research.microsoft.com/pubs/145347/BodyPartRecognition.pdf">Real-Time Human Pose Recognition in Parts from Single Depth Images</a>
 			</p>
 		</div>
-    </div>		
+    </div>	
+    -->	
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
-		    <!--<img class="paper-image" src="images/arcade_cropped.gif" alt=""> -->
             <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/arcade_cropped.mp4" type="video/mp4"></video>
         </div>
         <div class="seven columns" style="margin-top: 3%">
@@ -912,6 +942,7 @@
 			</p>
 		</div>
     </div>		
+    -->
 	
 	<!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
@@ -936,18 +967,14 @@
     </div>
     -->	
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="two columns" style="margin-top: 2%; width: 19%">
-          <!-- <img class="paper-image" src="images/obb_tree_cropped.gif" alt=""> -->
           <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/obb_tree_cropped.mp4" type="video/mp4"></video>
-		  <!-- <img class="paper-image" src="images/cloth_sim_cropped.gif" alt=""> -->
           <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/cloth_sim_cropped.mp4" type="video/mp4"></video>
         </div>
         <div class="two columns" style="margin-top: 2%; margin-left: 1.33333%; width: 19%">
-          <!-- <img class="paper-image" src="images/mesh_dec_bunny_cropped.gif" alt=""> -->
           <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/mesh_dec_bunny_cropped.mp4" type="video/mp4"></video>
-		  <!-- <img class="paper-image" src="images/hungry_bee_crop.gif"> -->
-		  <!-- <img class="paper-image" src="images/prenderer_cropped.gif" alt=""> -->
           <video class="paper-image" playsinline="" muted="" autoplay="" loop=""><source src="images/prenderer_cropped.mp4" type="video/mp4"></video>
         </div>
         <div class="seven columns" style="margin-top: 3%">
@@ -964,6 +991,7 @@
 			</p>
 		</div>
     </div>	
+    -->
 	
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
@@ -1009,10 +1037,10 @@
 		</div>
     </div>		
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
 		  <img class="paper-image" src="images/PK_test_setup_cropped.jpg" alt="">
-		  <!--<img class="paper-image" src="images/PK_Variation_Chip.jpg" alt="">-->
         </div>
         <div class="seven columns" style="margin-top: 3%">
 			<p>
@@ -1022,7 +1050,8 @@
 			  Investigated the matching of on-chip oscillators and compared statistics to theoretical estimates.
 			</p>
 		</div>
-    </div>	
+    </div>
+    -->	
 
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="five columns" style="margin-top: 4%">
@@ -1039,6 +1068,7 @@
 		</div>
     </div>
 	
+    <!--
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
         <div class="ten columns" style="margin-top: 2%">
 			<p style="margin-bottom: 0.5rem">
@@ -1060,6 +1090,7 @@
 			</p>
 		</div>
     </div>	
+    -->
     
     <div class="row" style="border-top-style: dotted; border-top-width: thin; margin-top: 3%">
     </div>
