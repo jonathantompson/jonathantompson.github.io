@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>All Trails Path Planner</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#111822; --muted:#2a3240; --accent:#6ee7ff; --accent2:#a78bfa; --ok:#10b981; --warn:#f59e0b; --err:#ef4444; --text:#e5eef9;
+      --edge:#60a5fa; /* unique edge color */
+      --edgeLabel:#93c5fd; /* edge id text */
+      --nodeLabel:#fde68a; /* node id text */
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:14px/1.3 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    .app{display:grid;grid-template-columns:360px 1fr;grid-template-rows:auto 1fr;gap:12px;height:100%;}
+    header{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:linear-gradient(90deg,var(--panel),#0e1420 60%, #0b0f14);border-bottom:1px solid var(--muted)}
+    header h1{margin:0;font-size:16px;letter-spacing:.3px}
+    header .right{display:flex;align-items:center;gap:10px}
+    .left{display:flex;gap:8px;align-items:center}
+    .pill{padding:4px 10px;border:1px solid var(--muted);border-radius:999px;background:#0f1520;color:#cbd5e1}
+
+    .sidebar{grid-row:2;grid-column:1;background:var(--panel);border-right:1px solid var(--muted);display:flex;flex-direction:column;min-width:320px}
+    .section{padding:12px;border-bottom:1px solid var(--muted)}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    label.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--muted);background:#0f1520;border-radius:10px;padding:8px 10px;cursor:pointer;user-select:none}
+    input[type="file"]{display:none}
+    button{border:1px solid var(--muted);background:#0f1520;color:#e5eef9;border-radius:10px;padding:8px 12px;cursor:pointer}
+    button.primary{background:linear-gradient(135deg, var(--accent), var(--accent2));color:#08121b;border:none}
+    button.warn{border-color:#4b2d0b;background:#24160a;color:#f8e7c2}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    .mode-btn.active{outline:2px solid var(--accent2)}
+
+    .canvas-wrap{grid-row:2;grid-column:2;position:relative;overflow:auto;background:#0b0f14}
+    #canvas{display:block;margin:auto;background:#0a0f17;box-shadow:0 0 0 1px #1d2735 inset}
+
+    .legend{font-size:12px;color:#cbd5e1}
+    .status{font-size:12px;opacity:.85}
+    .list{max-height:40vh;overflow:auto;border:1px solid var(--muted);border-radius:10px;background:#0f1520}
+    .list .item{padding:8px 10px;border-bottom:1px dashed #243042}
+    .list .item:last-child{border-bottom:0}
+    .hint{font-size:12px;color:#9fb3cc}
+    .badge{padding:2px 6px;border-radius:6px;background:#132030;color:#9adcf7;border:1px solid #223449}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#0c1220;border:1px solid #2a3240;border-radius:6px;padding:1px 6px}
+    .mini{font-size:11px; opacity:.85}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="left">
+        <h1>Edge‑Cover Route Planner</h1>
+        <span class="pill">All Trails Path Planner</span>
+      </div>
+      <div class="right status" id="status">Load a map image, add nodes & edges, set start/end, then <b>Compute Route</b>.</div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="section">
+        <div class="row">
+          <label class="btn">
+            <input id="fileInput" type="file" accept="image/*" />
+            📷 Upload Background
+          </label>
+          <button id="clearBtn" class="warn" title="Clear all graph data">Clear</button>
+        </div>
+        <div class="hint" style="margin-top:8px">PNG/JPG preferred. Image is only a visual backdrop; distances are in canvas pixels.</div>
+      </div>
+
+      <div class="section">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="mode-btn" id="modeSelect" data-mode="select">🖱️ Select</button>
+          <button class="mode-btn" id="modeNode" data-mode="node">➕ Node</button>
+          <button class="mode-btn" id="modeEdge" data-mode="edge">📐 Edge (waypoints)</button>
+          <button class="mode-btn" id="modeEdgeDraw" data-mode="edgeDraw">✏️ Edge (freehand)</button>
+          <button class="mode-btn" id="modeStart" data-mode="start">🟢 Set Start</button>
+          <button class="mode-btn" id="modeEnd" data-mode="end">🔴 Set End</button>
+          <button class="mode-btn" id="modeDelete" data-mode="delete">🗑️ Delete</button>
+        </div>
+        <div class="legend" style="margin-top:8px">
+          <div>• <b>Waypoint edge</b>: click start node → click waypoints → click end node. <span class="kbd">Esc</span> cancels.</div>
+          <div>• <b>Freehand edge</b>: drag from a node to another along the road pixels. Release on an end node to finish.</div>
+        </div>
+        <div style="margin-top:8px" class="mini">
+          Simplify drawn edges: <label><input type="checkbox" id="simplifyToggle" checked> on</label>
+          <label style="margin-left:8px">ε <input id="epsilonInput" type="number" min="0" step="0.5" value="2" style="width:60px"></label>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="row" style="gap:12px;align-items:center">
+          <button id="computeBtn" class="primary">⚙️ Compute Route</button>
+          <button id="clearRouteBtn">❌ Clear Route</button>
+        </div>
+        <div class="legend" style="margin-top:6px">Requires one connected component. Supports open tour (start ≠ end) or closed (start = end or no endpoints chosen).</div>
+      </div>
+
+      <div class="section">
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <div><b>Route Steps</b> <span class="badge" id="stepsBadge">0</span></div>
+          <div class="legend" id="distanceBadge">Total: 0</div>
+        </div>
+        <div id="routeList" class="list" style="margin-top:8px"></div>
+      </div>
+
+      <div class="section">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="badge">Tips</span>
+          <div class="hint">
+            • Delete node: removes its edges. • Use freehand to trace curvy roads. • If many odd nodes (>18), solver switches to a greedy matcher for speed.
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="canvas-wrap">
+      <canvas id="canvas" width="1280" height="800"></canvas>
+    </main>
+  </div>
+
+  <script>
+  // ================= Utility =================
+  const dist2 = (a,b)=>{const dx=a.x-b.x, dy=a.y-b.y; return dx*dx+dy*dy};
+  const dist = (a,b)=>Math.hypot(a.x-b.x, a.y-b.y);
+  const lerp = (a,b,t)=>a+(b-a)*t;
+  function polylineLength(points){ let L=0; for(let i=1;i<points.length;i++) L += dist(points[i-1], points[i]); return L; }
+  function midpointOnPolyline(points){
+    const L = polylineLength(points); if(L===0) return points[0];
+    let target=L/2, acc=0; for(let i=1;i<points.length;i++){ const seg=dist(points[i-1],points[i]); if(acc+seg>=target){ const t=(target-acc)/seg; return {x:lerp(points[i-1].x,points[i].x,t), y:lerp(points[i-1].y,points[i].y,t)} } acc+=seg }
+    return points[points.length-1];
+  }
+  function nearestPointOnSegment(p,a,b){
+    const abx=b.x-a.x, aby=b.y-a.y; const apx=p.x-a.x, apy=p.y-a.y; const ab2=abx*abx+aby*aby; let t=(ab2===0?0: (apx*abx+apy*aby)/ab2); t=Math.max(0,Math.min(1,t)); return {x:a.x+abx*t, y:a.y+aby*t, t};
+  }
+  function distancePointToPolyline(p, pts){
+    let best=Infinity; for(let i=1;i<pts.length;i++){ const q=nearestPointOnSegment(p, pts[i-1], pts[i]); const d=dist(p,q); if(d<best) best=d; } return best;
+  }
+  // Ramer–Douglas–Peucker for simplifying freehand paths
+  function rdp(points, epsilon){
+    if(points.length<=2) return points.slice();
+    const dmaxInfo = (()=>{
+      let maxD=0, idx=0; const A=points[0], B=points[points.length-1];
+      const ABx=B.x-A.x, ABy=B.y-A.y, AB2=ABx*ABx+ABy*ABy;
+      for(let i=1;i<points.length-1;i++){
+        const APx=points[i].x-A.x, APy=points[i].y-A.y;
+        const t = AB2===0?0: (APx*ABx+APy*ABy)/AB2; const qx=A.x+ABx*t, qy=A.y+ABy*t;
+        const dx=points[i].x-qx, dy=points[i].y-qy; const d = Math.hypot(dx,dy);
+        if(d>maxD){ maxD=d; idx=i; }
+      }
+      return {maxD, idx};
+    })();
+    if(dmaxInfo.maxD>epsilon){
+      const left = rdp(points.slice(0, dmaxInfo.idx+1), epsilon);
+      const right = rdp(points.slice(dmaxInfo.idx), epsilon);
+      return left.slice(0,-1).concat(right);
+    } else {
+      return [points[0], points[points.length-1]];
+    }
+  }
+
+  // ================= Data Model =================
+  const state = {
+    mode:'select',
+    nodes:[], // {id,x,y,isStart,isEnd}
+    edges:[], // {id,u,v,points:[...], length}
+    bgImage:null,
+    nextNodeId:1,
+    nextEdgeId:1,
+    pendingEdge:null, // waypoint-style {u, points:[...]} starting from node u
+    pendingDraw:null, // freehand-style {u, points:[...]} points exclude endpoints
+    route:null, // {steps:[{edgeId, from, to, length}], total}
+    extraCopies:new Map(), // edgeId -> extra count from matching augmentation
+  };
+
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  let DPR = window.devicePixelRatio||1; // HiDPI support
+  function resizeCanvasToDisplaySize(){
+    const w = canvas.clientWidth || canvas.width;
+    const h = canvas.clientHeight || canvas.height;
+    if(canvas.width!==w*DPR || canvas.height!==h*DPR){ canvas.width=w*DPR; canvas.height=h*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+  }
+
+  // Resolve CSS custom properties to concrete color strings for canvas
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || name; }
+
+  function addNode(x,y){ const id=state.nextNodeId++; state.nodes.push({id,x,y,isStart:false,isEnd:false}); draw(); }
+  function addEdge(uId, vId, waypoints){ if(uId===vId) return; const u=nodeById(uId), v=nodeById(vId); const pts=[{x:u.x,y:u.y}, ...waypoints, {x:v.x,y:v.y}]; const length=polylineLength(pts); const id=state.nextEdgeId++; state.edges.push({id,u:uId,v:vId,points:pts,length}); draw(); }
+  function deleteNodeAt(p){ const n=findNodeAt(p,12); if(!n) return false; // remove edges incident
+    state.edges = state.edges.filter(e=> e.u!==n.id && e.v!==n.id);
+    if(n.isStart||n.isEnd){ state.nodes.forEach(nd=>{ if(n.isStart) nd.isStart=false; if(n.isEnd) nd.isEnd=false; }); }
+    state.nodes = state.nodes.filter(nd=> nd.id!==n.id); draw(); return true; }
+  function deleteEdgeAt(p){ const hit=findEdgeAt(p,10); if(!hit) return false; state.edges = state.edges.filter(e=> e.id!==hit.id); draw(); return true; }
+  function nodeById(id){ return state.nodes.find(n=>n.id===id); }
+
+  function findNodeAt(p, r=10){ let best=null, bestd=Infinity; for(const n of state.nodes){ const d=dist(p,n); if(d<r && d<bestd){ best=n; bestd=d; } } return best; }
+  function findEdgeAt(p, thresh=8){ let best=null, bestd=Infinity; for(const e of state.edges){ const d=distancePointToPolyline(p, e.points); if(d<thresh && d<bestd){ best=e; bestd=d; } } return best; }
+
+  function setStartAt(p){ const n=findNodeAt(p,12); if(!n) return; state.nodes.forEach(x=>x.isStart=false); n.isStart=true; draw(); }
+  function setEndAt(p){ const n=findNodeAt(p,12); if(!n) return; state.nodes.forEach(x=>x.isEnd=false); n.isEnd=true; draw(); }
+  function getStartEnd(){ const s=state.nodes.find(n=>n.isStart), e=state.nodes.find(n=>n.isEnd); return {s: s? s.id : null, e: e? e.id : null}; }
+
+  // ================ Graph Algorithms =================
+  function buildAdj(){ const adj=new Map(); for(const n of state.nodes) adj.set(n.id, []);
+    for(const e of state.edges){ adj.get(e.u).push({to:e.v, edge:e.id, w:e.length}); adj.get(e.v).push({to:e.u, edge:e.id, w:e.length}); }
+    return adj;
+  }
+  function connectedComponentCount(){ const adj=buildAdj(); const visited=new Set(); const nodes=state.nodes.filter(n=> degree(n.id)>0 );
+    let comp=0; for(const n of nodes){ if(!visited.has(n.id)){ comp++; const stack=[n.id]; visited.add(n.id); while(stack.length){ const u=stack.pop(); for(const e of adj.get(u)){ if(!visited.has(e.to)){ visited.add(e.to); stack.push(e.to);} } } } }
+    return comp;
+  }
+  function degree(nodeId){ let d=0; for(const e of state.edges){ if(e.u===nodeId) d++; if(e.v===nodeId) d++; } return d; }
+
+  function dijkstra(startId){ const adj=buildAdj(); const distMap=new Map(state.nodes.map(n=>[n.id, Infinity])); const prev=new Map(); distMap.set(startId,0);
+    const pq=[]; pq.push({id:startId, d:0});
+    while(pq.length){
+      let mi=0; for(let i=1;i<pq.length;i++) if(pq[i].d<pq[mi].d) mi=i; const cur=pq.splice(mi,1)[0]; const u=cur.id; if(cur.d!==distMap.get(u)) continue;
+      for(const {to,edge,w} of adj.get(u)){
+        const nd=cur.d + w; if(nd < distMap.get(to)) { distMap.set(to, nd); prev.set(to, {prev:u, edge}); pq.push({id:to, d:nd}); }
+      }
+    }
+    return {dist:distMap, prev};
+  }
+  function reconstructEdgePath(prev, fromId, toId){
+    const seq=[]; let cur=toId; while(cur!==fromId){ const step=prev.get(cur); if(!step) return null; seq.push(step.edge); cur=step.prev; } seq.reverse(); return seq; }
+
+  function solveOpenCPP(){
+    const {s,e} = getStartEnd();
+    if(state.edges.length===0){ throw new Error('No edges to cover. Add edges first.'); }
+    if(connectedComponentCount()!==1){ throw new Error('Graph must be a single connected component (ignoring isolated nodes).'); }
+
+    const odd=[]; for(const n of state.nodes){ const d=degree(n.id); if(d%2===1) odd.push(n.id); }
+
+    let T = new Set(odd);
+    if(s!==null) { if(T.has(s)) T.delete(s); else T.add(s); }
+    if(e!==null) { if(T.has(e)) T.delete(e); else T.add(e); }
+
+    const Tlist = Array.from(T);
+    const dijk = new Map();
+    for(const vid of Tlist){ dijk.set(vid, dijkstra(vid)); }
+
+    const m = Tlist.length;
+    if(m%2===1){ throw new Error('Internal error: odd number of required parities.'); }
+
+    const cost = Array.from({length:m}, ()=>Array(m).fill(0));
+    for(let i=0;i<m;i++){
+      for(let j=i+1;j<m;j++){
+        const di = dijk.get(Tlist[i]);
+        const w = di.dist.get(Tlist[j]);
+        if(!isFinite(w)) throw new Error('Graph is disconnected (no path between nodes).');
+        cost[i][j]=cost[j][i]=w;
+      }
+    }
+
+    const MAX_DP_M = 18;
+    let pairs=[];
+    if(m===0){ pairs=[]; }
+    else if(m<=MAX_DP_M){
+      const dp = new Map();
+      const choice = new Map();
+      function solve(mask){
+        if(mask===0) return 0;
+        if(dp.has(mask)) return dp.get(mask);
+        let i=0; while(((mask>>i)&1)===0) i++;
+        let best=Infinity, bestj=-1, bestrest=0;
+        const maskWithoutI = mask & ~(1<<i);
+        for(let j=i+1;j<m;j++) if((mask>>j)&1){
+          const nextMask = maskWithoutI & ~(1<<j);
+          const cand = cost[i][j] + solve(nextMask);
+          if(cand<best){ best=cand; bestj=j; bestrest=nextMask; }
+        }
+        dp.set(mask,best); choice.set(mask,{i, j:bestj, rest:bestrest}); return best;
+      }
+      const fullMask=(1<<m)-1; solve(fullMask);
+      let mask=fullMask; while(mask){ const {i,j,rest}=choice.get(mask); pairs.push([i,j]); mask=rest; }
+    } else {
+      const remaining=new Set(Tlist.map((_,i)=>i));
+      while(remaining.size){
+        let bi=-1,bj=-1,bd=Infinity; const arr=Array.from(remaining);
+        for(let x=0;x<arr.length;x++) for(let y=x+1;y<arr.length;y++){ const i=arr[x], j=arr[y]; const d=cost[i][j]; if(d<bd){ bd=d; bi=i; bj=j; } }
+        pairs.push([bi,bj]); remaining.delete(bi); remaining.delete(bj);
+      }
+    }
+
+    const extra = new Map();
+    function incEdge(id){ extra.set(id, (extra.get(id)||0)+1); }
+    for(const [ai,bi] of pairs){ const a=Tlist[ai], b=Tlist[bi]; const di = dijk.get(a); const pathEdges = reconstructEdgePath(di.prev, a, b); if(!pathEdges) throw new Error('Failed to reconstruct path in augmentation.'); for(const eid of pathEdges) incEdge(eid); }
+
+    state.extraCopies = extra;
+
+    const adj = new Map(); for(const n of state.nodes) adj.set(n.id, []);
+    const residual = new Map();
+
+    for(const e of state.edges){ const copies = 1 + (extra.get(e.id)||0); for(let k=0;k<copies;k++){
+        const tag = `${e.id}#${k}`;
+        if(!residual.has(tag)) residual.set(tag, true);
+        adj.get(e.u).push({to:e.v, tag, edgeId:e.id});
+        adj.get(e.v).push({to:e.u, tag, edgeId:e.id});
+      }
+    }
+
+    let startNodeId = (s!==null? s : null);
+    if(startNodeId===null){
+      startNodeId = state.nodes.find(n=> degree(n.id)>0)?.id;
+    }
+
+    const stack=[startNodeId];
+    const pathNodes=[];
+    const used = new Set();
+    const itIdx = new Map();
+    for(const n of state.nodes) itIdx.set(n.id,0);
+
+    while(stack.length){
+      const v = stack[stack.length-1];
+      const lst = adj.get(v);
+      let i = itIdx.get(v);
+      while(i<lst.length && used.has(lst[i].tag)) i++;
+      itIdx.set(v,i);
+      if(i===lst.length){
+        pathNodes.push(v); stack.pop();
+      } else {
+        const e = lst[i]; used.add(e.tag); stack.push(e.to);
+      }
+    }
+    if(pathNodes.length===0) throw new Error('Failed to construct Euler trail.');
+    pathNodes.reverse();
+
+    const available = new Map();
+    for(const e of state.edges){ available.set(e.id, 1 + (extra.get(e.id)||0)); }
+
+    const steps=[]; let total=0;
+    for(let i=1;i<pathNodes.length;i++){
+      const a=pathNodes[i-1], b=pathNodes[i];
+      let chosen=null;
+      for(const e of state.edges){ if( (e.u===a && e.v===b) || (e.u===b && e.v===a) ){ if((available.get(e.id)||0)>0){ chosen=e; break; } } }
+      if(!chosen) throw new Error('Mapping node walk to edges failed (no available copy).');
+      available.set(chosen.id, available.get(chosen.id)-1);
+      const from=a, to=b; const length=chosen.length; total+=length;
+      steps.push({edgeId:chosen.id, from, to, length});
+    }
+
+    state.route = {steps, total};
+  }
+
+  // ================= Rendering =================
+  function draw(){ resizeCanvasToDisplaySize(); ctx.save(); ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(state.bgImage){ ctx.drawImage(state.bgImage, 0,0, canvas.width/DPR, canvas.height/DPR); }
+
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    const showEdgeLabels = !!state.route; // only after computing route
+    for(const e of state.edges){
+      // Draw edge with a unique consistent color
+      ctx.strokeStyle = cssVar('--edge'); ctx.lineWidth=4.5;
+      drawPolyline(e.points);
+      if(showEdgeLabels){
+        // Edge ID label at midpoint
+        const mid = midpointOnPolyline(e.points);
+        const label = `E${e.id}`;
+        ctx.font='12px ui-monospace';
+        const metrics=ctx.measureText(label); const pad=3; const w=metrics.width+pad*2, h=14+pad*2;
+        ctx.fillStyle='rgba(6,14,24,.85)'; ctx.strokeStyle='rgba(20,40,60,.9)'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.roundRect(mid.x-w/2, mid.y-h/2 - 10*(e.id%2?1:0), w, h, 6); ctx.fill(); ctx.stroke();
+        ctx.fillStyle=cssVar('--edgeLabel'); ctx.fillText(label, mid.x - metrics.width/2, mid.y + 4 - 10*(e.id%2?1:0));
+      }
+    }
+
+    for(const n of state.nodes){ drawNode(n); }
+
+    if(state.pendingEdge){ ctx.setLineDash([6,6]); ctx.strokeStyle = '#8ba3c7'; ctx.lineWidth=2; const u=nodeById(state.pendingEdge.u); const pts=[{x:u.x,y:u.y}, ...state.pendingEdge.points]; drawPolyline(pts); ctx.setLineDash([]); }
+
+    if(state.pendingDraw){ ctx.setLineDash([6,6]); ctx.strokeStyle = '#93c5fd'; ctx.lineWidth=3; const u=nodeById(state.pendingDraw.u); const pts=[{x:u.x,y:u.y}, ...state.pendingDraw.points]; drawPolyline(pts); ctx.setLineDash([]); }
+
+    // Step order of the route is intentionally not drawn
+
+    ctx.restore();
+  }
+
+  function drawNode(n){ const r=6; ctx.beginPath(); ctx.arc(n.x,n.y,r,0,Math.PI*2); ctx.fillStyle = '#0b1220'; ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle='#8aa2c5'; ctx.stroke();
+    if(n.isStart || n.isEnd){ ctx.beginPath(); ctx.arc(n.x,n.y,r+2,0,Math.PI*2); ctx.strokeStyle = n.isStart? '#10b981' : '#ef4444'; ctx.lineWidth=2; ctx.stroke(); }
+    // Node ID label in a contrasting color
+    ctx.fillStyle=cssVar('--nodeLabel'); ctx.font='12px ui-monospace'; ctx.fillText(String(n.id), n.x+8, n.y-8);
+  }
+
+  function drawPolyline(points){ ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y); for(let i=1;i<points.length;i++){ ctx.lineTo(points[i].x, points[i].y); } ctx.stroke(); }
+
+  // ================= Interaction =================
+  const statusEl = document.getElementById('status');
+  function setStatus(msg){ statusEl.innerHTML = msg; }
+
+  function setMode(m){ state.mode=m; document.querySelectorAll('.mode-btn').forEach(b=>{ b.classList.toggle('active', b.dataset.mode===m); }); setStatus(`Mode: <b>${m}</b>`); draw(); }
+  document.getElementById('modeSelect').onclick=()=>setMode('select');
+  document.getElementById('modeNode').onclick=()=>setMode('node');
+  document.getElementById('modeEdge').onclick=()=>setMode('edge');
+  document.getElementById('modeEdgeDraw').onclick=()=>setMode('edgeDraw');
+  document.getElementById('modeStart').onclick=()=>setMode('start');
+  document.getElementById('modeEnd').onclick=()=>setMode('end');
+  document.getElementById('modeDelete').onclick=()=>setMode('delete');
+
+  const fileInput = document.getElementById('fileInput');
+  fileInput.addEventListener('change', (e)=>{
+    const file = e.target.files?.[0]; if(!file) return;
+    const img = new Image(); img.onload=()=>{ state.bgImage=img;
+      const maxW = Math.min(1280, img.naturalWidth); const ratio = img.naturalHeight/img.naturalWidth; const w=maxW, h=Math.round(maxW*ratio);
+      canvas.style.width=w+'px'; canvas.style.height=h+'px'; resizeCanvasToDisplaySize(); draw(); };
+    img.src = URL.createObjectURL(file);
+  });
+
+  document.getElementById('clearBtn').onclick = ()=>{ if(confirm('Clear all nodes, edges, and route?')){ state.nodes=[]; state.edges=[]; state.nextNodeId=1; state.nextEdgeId=1; state.route=null; state.extraCopies.clear(); state.pendingEdge=null; state.pendingDraw=null; draw(); updateRouteList(); }};
+  document.getElementById('clearRouteBtn').onclick = ()=>{ state.route=null; draw(); updateRouteList(); setStatus('Route cleared.'); };
+
+  let isDragging=false; let dragNode=null; let drawing=false;
+  canvas.addEventListener('mousedown', (ev)=>{
+    const rect=canvas.getBoundingClientRect(); const p={x:(ev.clientX-rect.left), y:(ev.clientY-rect.top)};
+    if(state.mode==='node') { addNode(p.x,p.y); return; }
+    if(state.mode==='delete'){ if(deleteNodeAt(p)) { setStatus('Node deleted.'); updateRouteList(); return;} if(deleteEdgeAt(p)) { setStatus('Edge deleted.'); updateRouteList(); return;} return; }
+    if(state.mode==='start'){ setStartAt(p); setStatus('Start set.'); return; }
+    if(state.mode==='end'){ setEndAt(p); setStatus('End set.'); return; }
+    if(state.mode==='edge'){
+      const n = findNodeAt(p,12);
+      if(n){ state.pendingEdge = {u:n.id, points:[]}; draw(); }
+      return;
+    }
+    if(state.mode==='edgeDraw'){
+      const n = findNodeAt(p,12);
+      if(n){ state.pendingDraw = {u:n.id, points:[]}; drawing=true; draw(); }
+      return;
+    }
+    if(state.mode==='select'){
+      const n = findNodeAt(p,10); if(n){ isDragging=true; dragNode=n; }
+    }
+  });
+
+  canvas.addEventListener('mousemove', (ev)=>{
+    const rect=canvas.getBoundingClientRect(); const p={x:(ev.clientX-rect.left), y:(ev.clientY-rect.top)};
+    if(state.mode==='edge' && state.pendingEdge){ state.pendingEdge.points.push({x:p.x,y:p.y}); draw(); state.pendingEdge.points.pop(); return; }
+    if(state.mode==='edgeDraw' && drawing && state.pendingDraw){
+      const pts=state.pendingDraw.points; const last=pts[pts.length-1];
+      if(!last || dist(last,p)>1.5){ pts.push({x:p.x,y:p.y}); draw(); }
+      return;
+    }
+    if(isDragging && dragNode){ dragNode.x=p.x; dragNode.y=p.y; // update endpoints in edge polylines
+      for(const e of state.edges){ if(e.u===dragNode.id || e.v===dragNode.id){ const pts=[{x:nodeById(e.u).x,y:nodeById(e.u).y}, ...e.points.slice(1,-1), {x:nodeById(e.v).x,y:nodeById(e.v).y}]; e.points=pts; e.length=polylineLength(pts);} }
+      draw(); }
+  });
+
+  window.addEventListener('mouseup', (ev)=>{
+    const rect=canvas.getBoundingClientRect(); const p={x:(ev.clientX-rect.left), y:(ev.clientY-rect.top)};
+    if(state.mode==='edgeDraw' && drawing && state.pendingDraw){
+      drawing=false;
+      const startNode = nodeById(state.pendingDraw.u);
+      const endNode = findNodeAt(p,14);
+      if(endNode && endNode.id!==startNode.id){
+        let waypoints = state.pendingDraw.points.slice();
+        const simplifyOn = document.getElementById('simplifyToggle').checked;
+        const eps = parseFloat(document.getElementById('epsilonInput').value)||0;
+        if(simplifyOn && waypoints.length>2){ waypoints = rdp([{x:startNode.x,y:startNode.y}, ...waypoints, {x:endNode.x,y:endNode.y}], eps).slice(1,-1); }
+        addEdge(startNode.id, endNode.id, waypoints);
+        state.pendingDraw=null; setStatus('Freehand edge added.'); updateRouteList();
+      } else {
+        state.pendingDraw=null; setStatus('Freehand cancelled (release on a different node).'); draw();
+      }
+      return;
+    }
+    isDragging=false; dragNode=null;
+  });
+
+  window.addEventListener('keydown', (ev)=>{
+    if(state.mode==='edge' && ev.key==='Escape' && state.pendingEdge){ state.pendingEdge=null; setStatus('Edge creation canceled.'); draw(); }
+    if(state.mode==='edgeDraw' && ev.key==='Escape' && state.pendingDraw){ state.pendingDraw=null; drawing=false; setStatus('Freehand edge canceled.'); draw(); }
+  });
+
+  canvas.addEventListener('click', (ev)=>{
+    const rect=canvas.getBoundingClientRect(); const p={x:(ev.clientX-rect.left), y:(ev.clientY-rect.top)};
+    if(state.mode==='edge'){
+      if(!state.pendingEdge){ const n=findNodeAt(p,12); if(n){ state.pendingEdge={u:n.id, points:[]}; } draw(); return; }
+      const n = findNodeAt(p,12);
+      if(n && n.id!==state.pendingEdge.u){
+        const waypoints=[...state.pendingEdge.points]; addEdge(state.pendingEdge.u, n.id, waypoints); state.pendingEdge=null; setStatus('Edge added.'); updateRouteList();
+      } else {
+        state.pendingEdge.points.push({x:p.x,y:p.y}); draw();
+      }
+      return;
+    }
+  });
+
+  // =============== Route display and list ===============
+  function updateRouteList(){ const list = document.getElementById('routeList'); const stepsBadge=document.getElementById('stepsBadge'); const distBadge=document.getElementById('distanceBadge');
+    list.innerHTML=''; if(!state.route){ stepsBadge.textContent='0'; distBadge.textContent='Total: 0'; return; }
+    const {steps, total} = state.route; stepsBadge.textContent=String(steps.length); distBadge.textContent = 'Total: ' + total.toFixed(1) + ' px';
+    let cum=0; steps.forEach((s, i)=>{ const e=state.edges.find(x=>x.id===s.edgeId); const from=nodeById(s.from), to=nodeById(s.to); cum+=s.length; const div=document.createElement('div'); div.className='item'; div.innerHTML=`<b>${i+1}.</b> Edge <code>#${e.id}</code>: Node ${from.id} → ${to.id} <span style="opacity:.8">(${s.length.toFixed(1)} px)</span> · Cum ${cum.toFixed(1)} px`; list.appendChild(div); });
+  }
+
+  document.getElementById('computeBtn').onclick = ()=>{
+    try{
+      setStatus('Solving…');
+      solveOpenCPP();
+      setStatus('Route computed. (Edge labels shown on canvas; step order hidden)');
+      draw(); updateRouteList();
+    } catch(err){ console.error(err); alert(err.message); setStatus(`<span style="color: var(--err)">${err.message}</span>`); }
+  };
+
+  setMode('select'); draw();
+
+  if(!CanvasRenderingContext2D.prototype.roundRect){
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){ this.beginPath(); this.moveTo(x+r,y); this.arcTo(x+w,y,x+w,y+h,r); this.arcTo(x+w,y+h,x,y+h,r); this.arcTo(x,y+h,x,y,r); this.arcTo(x,y,x+w,y,r); this.closePath(); return this; };
+  }
+
+  </script>
+</body>
+</html>
